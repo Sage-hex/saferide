@@ -1,0 +1,9 @@
+.Blackbtn {
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--black-btn-color);
+    color: var(--white);
+    border-radius: var(--radius);
+    font-weight: var(--font-weight);
+    cursor: pointer;
+}
