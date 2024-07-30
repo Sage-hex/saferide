@@ -7,7 +7,7 @@ const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {
-        setIsOpen((Open) => !isOpen);
+        setIsOpen((isOpen) => !isOpen);
     }
   return (
     <header className="header">
@@ -17,12 +17,12 @@ const Header = () => {
                 <div className="logo">
                     <img src={Logo} alt="logo" />
                 </div>
-                <ul className="nav-links">
+                <ul className={`nav-links ${setIsOpen ? isOpen : null} ` }>
                     <li><a href="/">Ride</a></li>
                     <li><a href="/about">About us</a></li>
                     <li><a href="/contact">Contact us</a></li>
                 </ul>
-                <Hamburger className="hamburger" toggled={isOpen} toggle={toggleMenu} />
+                <Hamburger className="hamburger" onClick={toggleMenu} />
 
 
             </nav>
