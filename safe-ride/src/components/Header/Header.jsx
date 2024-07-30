@@ -6,7 +6,9 @@ import { useState } from "react";
 const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const toggleMenu = () => setIsOpen(!isOpen);
+    const toggleMenu = () => {
+        setIsOpen((Open) => !isOpen);
+    }
   return (
     <header className="header">
         <section className="header-container">
@@ -20,6 +22,7 @@ const Header = () => {
                     <li><a href="/about">About us</a></li>
                     <li><a href="/contact">Contact us</a></li>
                 </ul>
+                <Hamburger className="hamburger" toggled={isOpen} toggle={toggleMenu} />
 
 
             </nav>
