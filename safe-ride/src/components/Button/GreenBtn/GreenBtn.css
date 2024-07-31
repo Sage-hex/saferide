@@ -1,7 +1,8 @@
 button {
-    background-color: blue;
+    background-color: var(--green-btn-color);
     padding: 10px 15px;
     color: white;
     border: none;
+    border-radius: 8px;
     
 }

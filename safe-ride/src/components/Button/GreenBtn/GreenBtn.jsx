@@ -26,7 +26,7 @@
 
 // export default GreenBtn;
 
-
+import "./GreenBtn.css"
 const GreenBtn = ({children}) => {
 
 
