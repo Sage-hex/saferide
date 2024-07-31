@@ -6,4 +6,5 @@
     border-radius: var(--radius);
     font-weight: var(--font-weight);
     cursor: pointer;
+    width: max-content;
 }

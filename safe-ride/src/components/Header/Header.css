@@ -1,57 +1,65 @@
 .header {
     width: 100%;
     height: 10vh;
-    background-color: var(--white);
+    background-color: var(--header-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--header-bg);
 }
 
 .header .header-container {
-    width: 90%;
+    width: 95%;
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.hamburger {
+    display: none;
+}
+
 .header .navbar {
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
 }
 
 .header .logo {
-    width: 30%;
+    width: 5%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 .header .logo img {
-    width: 51px;
-    height: 51px;
+    width: 55px;
+    height: 55px;
 }
 
-.header .menu-items {
+.header .right-nav {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden; 
 }
 
 .header .nav-links {
-    width: 100%;
+    width: 95%;
     height: 100%;
     list-style: none;
     display: flex;
+    flex-direction: column; /* Stack items vertically */
     align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
+    padding-left: 0;
+    justify-content: center;
+    gap: 20px;
     font-size: var(--base-font-size);
 }
 
@@ -62,59 +70,101 @@
 }
 
 .header .header-btn-container {
-    width: 15%;
+    width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    background-color: ;
 }
 
 .header .header-login {
     padding: 10px 15px;
     border: none;
     color: var(--black);
-    background-color: transparent;
+    background-color: white;
     font-weight: var(--font-weight);
 }
 
-/* @media screen and (max-width: 380px) {
+@media screen and (max-width: 600px) {
     .header .navbar {
         width: 100%;
         height: 100%;
         justify-content: space-between;
     }
 
-    .header .menu-items {
-        display: none;
-    }
-    .header .menu-items.is-open {
+    .hamburger {
         display: block;
-        background-color: red;
+        z-index: 101;
     }
 
-    .header .header-btn-container {
-        display: none;
+    .header .right-nav {
+        /* Keep the same transition settings */
+        visibility: hidden;
+        transform: translateY(-100%);
+        opacity: 0;
+        /* background-color: var(--black-transparent); */
+        background-color: gray;
     }
-} */
 
-@media screen and (max-width: 380px) {
-    .header .navbar {
+    .right-nav.is-open {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 100%;
-        justify-content: space-between;
+        height: 100vh;
+        /* background-color: red; */
+        z-index: 100;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible; /* Show element */
     }
 
-    .header .menu-items {
-        display: none;
+    .right-nav .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: max-content;
+        width: 100%;
+        padding: 10px;
+        gap: 20px;
+        transition: opacity 0.5s ease-out, transform 5s ease-out; /* Match with parent transition */
     }
 
-    .header .menu-items.is-open {
-        display: block;
-        background-color: red; /* Test to see if this change is visible */
+    .right-nav .nav-links li {
+        width: 70%;
+        text-align: center;
+        background-color: var(--white);
+        border-radius: 5px;
+        padding: 10px;
+        opacity: 0; /* Start as invisible */
+        transform: translateY(20px); /* Start from below */
+        transition: opacity 4s ease-out, transform 0.5s ease-out; /* Animation settings */
+    }
+
+    .right-nav.is-open .nav-links li {
+        opacity: 1; /* Fade in */
+        transform: translateY(0); /* Slide up */
     }
 
     .header .header-btn-container {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 20%;
+        padding: 15px 10px;
+    }
+
+    .header .header-btn-container .Black-custom,
+    .header-login {
+        padding: 15px 10px;
+        width: 70%;
+        border-radius: 5px;
     }
 }

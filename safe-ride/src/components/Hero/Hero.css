@@ -1,0 +1,69 @@
+.hero{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: blue;
+    overflow: hidden;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.hero-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2; /* This Z-index ensures the text is above the carousel */
+    color: white; 
+    /* display: flex; */
+     /* align-items: center;  */
+    /* justify-content: flex-start; */
+    background: rgba(0, 0, 0, 0.5); /* Optional: Add a background for contrast */
+}
+
+.details {
+    width: 70%;
+    height: 100%;
+    /* background-color: blue; */
+    padding-left: 3.3rem;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+.details .hero-title {
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    text-transform: capitalize;
+    color: var(--white);
+}
+
+.details .hero-text {
+    font-size:18px;
+    color: var(--white);
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    /* opacity: 0.9; */
+}
+
+/* .details .hero-btn {
+    margin-top: 40rem;
+} */
+
+@media screen and (max-width: 600px) {
+    .details .hero-title{
+        font-size: 30px;
+
+    }
+
+    .details .hero-text{
+        font-size: 15px;
+        /* font-size: 17px; */
+    }
+}

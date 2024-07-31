@@ -3,6 +3,8 @@ button {
     padding: 10px 15px;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
+    width: max-content;
+    /* margin: 1rem; */
     
 }
