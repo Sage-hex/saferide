@@ -9,6 +9,7 @@
     flex-direction: column;
     margin-top: 112px;
     padding: 1rem;
+ 
 }
 
 .driver-container-wrapper {
@@ -71,8 +72,11 @@
 }
 
 @media screen and (max-width: 600px) {
+    .main-container{
+        margin-top: 2rem;
+    }
     .driver-job-text {
-        font-size: 29px;
+        font-size: 27px;
     
     }
     
@@ -88,10 +92,14 @@
 
     .details-container{
         width: 100%;
-        background-color: violet;
-        background-color: var(--dark-green);
+        gap: 1rem;
+        /* background-color: violet; */
+        /* background-color: var(--dark-green); */
         font-size: 15px;
         /* font-size: 17px; */
+    }
+    .details-container h2{
+        font-size: 30px;
     }
     .details-container p {
         font-size: 16px;

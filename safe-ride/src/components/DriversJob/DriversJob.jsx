@@ -28,6 +28,48 @@ const DriversJob = () => {
 export default DriversJob;
 
 
+// import React, { useEffect, useState } from 'react';
+// import GreenBtn from "../Button/GreenBtn/GreenBtn";
+// import "./DriversJob.css";
+// import driverImage from "../../assets/driver-job.jfif";
+
+// const DriversJob = () => {
+//     const [scrollY, setScrollY] = useState(0);
+
+//     useEffect(() => {
+//         const handleScroll = () => {
+//             setScrollY(window.scrollY);
+//         };
+
+//         window.addEventListener('scroll', handleScroll);
+//         return () => window.removeEventListener('scroll', handleScroll);
+//     }, []);
+
+//     return (
+//         <section className="main-container" style={{ transform: `translateY(${scrollY * 0.5}px)` }}>
+//             <h1 className="driver-job-text">
+//                 Earn money with SafeRide as a driver
+//             </h1>
+//             <section className="driver-container-wrapper">
+//                 <article className="image-container">
+//                     <img src={driverImage} alt="driver" />
+//                 </article>
+//                 <article className="details-container">
+//                     <h2>Drive and Earn money</h2>
+//                     <p>
+//                         With SafeRide, drivers will be able to earn <br /> and drive our generous
+//                         customers <br /> to their various destinations happily
+//                     </p>
+//                     <GreenBtn>Apply Now</GreenBtn>
+//                 </article>
+//             </section>
+//         </section>
+//     );
+// };
+
+// export default DriversJob;
+
+
 // import { useEffect } from 'react';
 // import GreenBtn from "../Button/GreenBtn/GreenBtn";
 // import "./DriversJob.css";
