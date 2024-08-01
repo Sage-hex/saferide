@@ -73,7 +73,7 @@
     font-weight: var(--font-weight);
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 425px) {
     .header .navbar{
         /* background-color: green; */
         /* display: flex; */
@@ -90,4 +90,11 @@
         display: none;
     }
 
+}
+
+@media screen and (min-width: 426px) {
+    .header .nav-links .hamburger{
+        display: none;
+
+    }
 }
