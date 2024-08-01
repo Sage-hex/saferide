@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--font-family-poppins);
 }
 
 :root{
@@ -12,10 +13,11 @@
   --white:#FFFFFF;
   --radius:20px;
   --black:#000000;
-  --black-transparent:#000000ce;
+  --nav-dropdown-bg:gray;
   --font-family-poppins: 'Poppins', sans-serif;
   --base-font-size:16px;
   --font-weight:600;
   --header-bg:#FAFAFA;
+  --dark-green: #13633C;
   
 }
