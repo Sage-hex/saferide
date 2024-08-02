@@ -46,7 +46,6 @@ import "./Header.css";
 import Logo from "../../assets/Saferide.svg";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
-import 'animate.css'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

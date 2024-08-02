@@ -78,13 +78,34 @@
 .service-wrapper .img-two{
     width: 55%;
     height: 100%;
-    background-color: springgreen;
+    /* background-color: springgreen; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
 .service-wrapper .img-two img{
-    width: 100%;
+    width: 37%;
     height: 50%;
     object-fit: contain;
+    /* background-color: red; */
 }
+
+.service-wrapper .img-three{
+    width: 55%;
+    height: 100%;
+    background-color: springgreen;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.service-wrapper .img-three img{
+    width: 36%;
+    height: 40%;
+    object-fit: contain;
+    /* background-color: blue; */
+}
+
+
 .service-wrapper .service-container-one p{
     /* width: 70%;
     height: 100%; */

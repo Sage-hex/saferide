@@ -39,7 +39,7 @@ const OurServices = () => {
               <h2>Rides</h2>
               <p>Request and get a quick and safe ride</p>
             </article>
-            <article className="service-container-one-img">
+            <article className="service-container-one-img img-two img-three">
               <img src={image3} alt="bg-one" />
             </article>
           </article>
