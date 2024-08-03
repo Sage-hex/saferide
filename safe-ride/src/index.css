@@ -13,13 +13,18 @@
   --green-btn-color: #24B971;
   --black-btn-color:#0A0B0A;
   --white:#FFFFFF;
+  --off-white:#FAFAFA;
   --radius:20px;
   --black:#000000;
   --nav-dropdown-bg:gray;
   --font-family-poppins: 'Poppins', sans-serif;
   --base-font-size:16px;
+  --font-size:22px;
   --font-weight:600;
   --header-bg:#FAFAFA;
   --dark-green: #13633C;
+  --base-border-radius:16px;
+  --custom-right:0 16px 16px 0;
+  --custom-left:16px 0  0 16px;
   
 }
