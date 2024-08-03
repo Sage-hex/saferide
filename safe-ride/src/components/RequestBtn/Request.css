@@ -36,3 +36,18 @@
     border: 1px solid var(--black);
     color: var(--black);
 }
+.request-btn-container .Green-custom:hover{
+    background-color: var(--green-btn-color);
+    color: white;
+    border: none;
+    transition: all 450ms ease-in-out;
+}
+
+@media screen and (max-width:600px) {
+    .main-request-container h1{
+        font-size: 1.5rem;
+
+    }
+
+
+}
