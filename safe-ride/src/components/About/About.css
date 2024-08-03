@@ -26,13 +26,14 @@
     height: 100%;
     /* background-color: blue; */
     /* border-radius: var(--base-border-radius); */
-    border-radius: ;
+    border-radius: 10px;
 }
 
 .about-img-container img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
     /* border-radius: var(--base-border-radius); */
 
 }
