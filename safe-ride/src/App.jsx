@@ -5,6 +5,7 @@ import DriversJob from './components/DriversJob/DriversJob'
 import OurServices from './components/OurServices/OurServices'
 import About from './components/About/About'
 import Request from './components/RequestBtn/Request'
+import Explore from './components/Explore/Explore'
 const App = () => {
   return (
     <div>
@@ -13,7 +14,8 @@ const App = () => {
       <DriversJob/>
       <OurServices/>
       <About/>
-      <Request/>
+      {/* <Request/> */}
+      <Explore/>
       
     </div>
   )
