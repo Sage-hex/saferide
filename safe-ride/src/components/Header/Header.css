@@ -76,12 +76,32 @@
     gap: 10px;
 }
 
+.header .Black-custom{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.header .Black-custom:hover{
+    /* background-color: var(--white); */
+    background-color: orangered;
+    color: var(--black);
+    transition: all 450ms ease;
+    border: 1px solid white;
+}
+
 .header .header-login {
     padding: 10px 15px;
     border: none;
     color: var(--black);
-    background-color: white;
+    background-color: var(--off-white);
     font-weight: var(--font-weight);
+}
+
+header .header-login:hover{
+    border: 1px solid var(--green-btn-color);
+    background-color: var(--black);
+    transition: all 450ms ease;
+    color: var(--white);
 }
 
 @keyframes bounceIn {
