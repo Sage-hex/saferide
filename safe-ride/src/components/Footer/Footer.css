@@ -1,0 +1,241 @@
+.main-footer-container{
+    width: 100%;
+    height: 55vh;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding:1rem 0; */
+    margin-top: 4rem;
+}
+.footer-inner-wrapper{
+    width: 90%;
+    height: 100%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-details{
+    width: 100%;
+    height: 70%;
+    /* background-color: rgb(0, 154, 192); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo-container{
+    width: 30%;
+    height: 100%;
+    /* border: 2px solid rebeccapurple; */
+    /* padding: 2rem; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer-logo-container img {
+    width: 20%;
+    height: 50%;
+}
+.saferide-details{
+    width: 20%;
+    height: 100%;
+    /* border: 2px solid rebeccapurple; */
+}
+.safe-ride-partner{
+    width: 20%;
+    height: 100%;
+    /* border: 2px solid rebeccapurple; */
+}
+.safe-ride-company{
+    width: 25%;
+    height: 100%;
+    /* border: 2px solid rebeccapurple; */
+}
+
+.saferide-details,.safe-ride-partner,.safe-ride-company{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: center; */
+    padding: 1rem;
+    gap: 8px;
+}
+.saferide-details p,
+.safe-ride-partner p,
+.safe-ride-company p{
+    color: var(--black);
+}
+.saferide-details h3,
+.safe-ride-partner h3,
+.safe-ride-company h3{
+    color: var(--black);
+}
+
+.footer-social-container{
+    width: 100%;
+    height: 30%;
+    /* background-color: blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+}
+.footer-social-logo-container{
+    width: 40%;
+    height: 100%;
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5em;
+}
+.footer-social-logo-container .footer-social-logo{
+    font-size: 25px;
+}
+
+.footer-form{
+    width: 40%;
+    height: 100%;
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.form-wrapper{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    /* background-color: white; */
+    /* border: 2px solid violet; */
+
+}
+
+.form-wrapper input {
+    padding-left: 1rem;
+    width: 75%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid var( --green-btn-color);
+    background-color: var(--off-white);
+
+
+}
+
+@media screen and (max-width:600px) {
+    .main-footer-container{
+        margin-top: 15rem;
+    }
+    .footer-inner-wrapper{
+        /* display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4,1fr); */
+        /* background-color: red; */
+        height: max-content;
+        /* width: 100%; */
+    }
+    .footer-details{
+       flex-direction: column;
+
+    }
+    .footer-social-container{
+        flex-direction: column;
+    }
+    .footer-logo-container{
+        /* background-color: blueviolet; */
+        height: 70%;
+    }
+    .saferide-details p,
+    .safe-ride-partner p,
+    .safe-ride-company p{
+        color: var(--black);
+        font-size: 12px;
+    }
+    .saferide-details h3,
+    .safe-ride-partner h3,
+    .safe-ride-company h3{
+        color: var(--black);
+        font-size: 12px;
+    }
+
+    .saferide-details,.safe-ride-partner,.safe-ride-company{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* justify-content: center; */
+        padding: 1rem;
+        gap: 8px;
+        /* border: 1px solid green; */
+        width: 100%;
+    }
+
+    .footer-logo-container {
+        width: 100%;
+        justify-content: center;
+    }
+    .footer-logo-container img {
+        width: 20%;
+        /* height: 50%; */
+    }
+    .footer-social-container{
+        width: 100%;
+        height: max-content;
+        justify-content: center;
+        /* background-color: rebeccapurple; */
+        /* border: 1px solid blue; */
+        flex-direction: column;
+        /* gap: 2rem; */
+    }
+
+    .footer-social-logo-container{
+        width: 100%;
+        height: max-content;
+        align-items: center;
+        padding: 2rem;
+        font-size: 10px;
+        justify-content: center;
+        /* border: 1px solid greenyellow; */
+    }
+
+    .footer-form{
+        width: 100%;
+        height: max-content;
+        /* border: 1px solid rgb(34, 0, 128); */
+        /* background-color: rgba(165, 42, 42, 0); */
+    }
+    .form-wrapper{
+        width: 100%;
+        /* height: 100%; */
+        /* border: 1px solid black; */
+        /* background-color: blueviolet; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        gap: 6px;
+        /* justify-content: center; */
+    }
+    .form-wrapper input {
+        padding-left: 1rem;
+        width: 100%;
+        /* height: 100%; */
+        border-radius: 0;
+        padding: .5rem;
+        /* background-color: brown; */
+        
+    }
+    
+    .footer-form .Green-custom{
+        border-radius: 0;
+        color: white;
+        width: 100%;
+    }
+}

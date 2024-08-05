@@ -174,9 +174,9 @@ header .header-login:hover{
         background-color: var(--white);
         border-radius: 5px;
         padding: 10px;
-        opacity: 0;
+        opacity: 1;
         transform: translateY(-30px); /* Start higher */
-        transition: opacity 1.5s ease-in-out, transform 1.5s ease-out; /* Further increased duration */
+        transition: opacity 0.5s ease-in-out, transform 1.5s ease-out; /* Further increased duration */
     }
 
     .right-nav.is-open .nav-links li {

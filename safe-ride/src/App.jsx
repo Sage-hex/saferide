@@ -6,6 +6,7 @@ import OurServices from './components/OurServices/OurServices'
 import About from './components/About/About'
 import Request from './components/RequestBtn/Request'
 import Explore from './components/Explore/Explore'
+import Footer from './components/Footer/Footer'
 const App = () => {
   return (
     <div>
@@ -16,6 +17,7 @@ const App = () => {
       <About/>
       {/* <Request/> */}
       <Explore/>
+      <Footer/>
       
     </div>
   )
