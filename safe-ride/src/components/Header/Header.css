@@ -176,11 +176,11 @@ header .header-login:hover{
         padding: 10px;
         opacity: 1;
         transform: translateY(-30px); /* Start higher */
-        transition: opacity 0.5s ease-in-out, transform 1.5s ease-out; /* Further increased duration */
+        transition: opacity 0.5s ease-in-out, transform 1.5s ease-out;
     }
 
     .right-nav.is-open .nav-links li {
-        animation: bounceIn 1.5s forwards; /* Further increased duration */
+        animation: bounceIn 1.5s forwards; /* This Further increases the duration */
     }
 
     .header .header-btn-container {
