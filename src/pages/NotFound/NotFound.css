@@ -11,7 +11,8 @@
   
   .notfound-image {
     max-width: 400px;
-    width: 80%;
+    width: 50%;
+    height: 50%;
     margin-bottom: 2rem;
   }
   

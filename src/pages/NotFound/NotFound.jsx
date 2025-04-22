@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./NotFound.css";
+import notFoundImage from '../../assets/404-error-travel2.svg'
 
 const NotFound = () => {
   return (
     <div className="notfound-container">
       <img
-        src="https://storyset.com/images/illustrations/404-not-found-with-people-holding-numbers.svg"
+        src={notFoundImage} // Ensure this path matches where you saved the image
         alt="Page Not Found"
         className="notfound-image"
       />

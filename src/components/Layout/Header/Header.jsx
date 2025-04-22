@@ -1,85 +1,43 @@
-// import BlackBtn from "../Button/BlackBtn/BlackBtn"
-// import "./Header.css"
-// import Logo from "../../assets/Saferide.svg";
-// import Hamburger from "hamburger-react"
-// import { useState } from "react";
-// const Header = () => {
-
-//     const [isOpen, setIsOpen] = useState(false);
-//     const toggleMenu = () => {
-//         setIsOpen((open) => !open);
-//     }
-//   return (
-//     <header className="header">
-//         <section className="header-container">
-//             <nav className="navbar">
-
-//                 <div className="logo">
-//                     <img src={Logo} alt="logo" />
-//                 </div>
-//                 <section className={`menu-items ${isOpen ? "is-open" : ''}`}>
-
-//                 <ul className="nav-links">
-//                     <li><a href="/">Ride</a></li>
-//                     <li><a href="/about">About us</a></li>
-//                     <li><a href="/contact">Contact us</a></li>
-//                 </ul>
-//                 </section>
-//                 <Hamburger className="hamburger" onClick={toggleMenu} />
-
-//             </nav>
-//                 <div className="header-btn-container">
-//                     <button className="header-login" >Login</button>
-//                     <BlackBtn>Sign up</BlackBtn>
-//                 </div>
-
-//         </section>
-
-//     </header>
-//   )
-// }
-
-// export default Header
-
 import BlackBtn from "../../Button/BlackBtn/BlackBtn";
 import "./Header.css";
 import Logo from "../../../assets/Saferide.svg";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import the Link component
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleMenu = () => {
-  //   setIsOpen((isOpen) => !isOpen);
-  //   // console.log("Menu toggled, isOpen:", !isOpen); // Check state
-  // };
 
   return (
     <header className="header">
       <section className="header-container">
         <nav className="navbar">
           <article className="logo">
-            <img src={Logo} alt="logo" />
+            <Link to="/"> {/* Use Link for the home page */}
+              <img src={Logo} alt="logo" />
+            </Link>
           </article>
 
-          
           <article className={`right-nav ${isOpen ? "is-open" : ""}`}>
             <ul className="nav-links">
               <li>
-                <a href="/">Ride</a>
+                <Link to="/ride">Ride</Link> {/* Use Link for the /ride route */}
               </li>
               <li>
-                <a href="/about">About us</a>
+                <Link to="/about">About us</Link> {/* Use Link for the /about route */}
               </li>
               <li>
-                <a href="/contact">Contact us</a>
+                <Link to="/contact">Contact us</Link> {/* Use Link for the /contact route */}
               </li>
             </ul>
-          <article className="header-btn-container">
-            <button className="header-login">Login</button>
-            <BlackBtn>Sign up</BlackBtn>
-          </article>
+            <article className="header-btn-container">
+              <Link to="/login" className="header-login"> {/* Use Link for the /login route */}
+                Login
+              </Link>
+              <Link to="/signup"> {/* Use Link for the /signup route */}
+                <BlackBtn>Sign up</BlackBtn>
+              </Link>
+            </article>
           </article>
           <article className="hamburger">
             <Hamburger toggled={isOpen} toggle={setIsOpen} />
