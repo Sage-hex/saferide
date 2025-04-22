@@ -1,9 +1,9 @@
 import './Footer.css'
-import logo from "../../assets/Saferide.svg"
+import logo from "../../../assets/Saferide.svg";
 import { FaXTwitter,FaTiktok  } from "react-icons/fa6";
 import { FaFacebook,FaLinkedinIn  } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
-import GreenBtn from '../Button/GreenBtn/GreenBtn';
+import GreenBtn from '../../Button/GreenBtn/GreenBtn';
 
 
 const Footer = () => {

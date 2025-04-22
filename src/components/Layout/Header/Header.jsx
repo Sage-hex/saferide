@@ -41,9 +41,9 @@
 
 // export default Header
 
-import BlackBtn from "../Button/BlackBtn/BlackBtn";
+import BlackBtn from "../../Button/BlackBtn/BlackBtn";
 import "./Header.css";
-import Logo from "../../assets/Saferide.svg";
+import Logo from "../../../assets/Saferide.svg";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
 
