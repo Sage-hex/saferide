@@ -1,0 +1,21 @@
+/* AuthMessage.css */
+.auth-message {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 5rem auto;
+  }
+  
+  .auth-message h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .auth-message p {
+    color: var(--light-text);
+    margin-bottom: 1.5rem;
+  }

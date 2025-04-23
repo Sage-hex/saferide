@@ -1,0 +1,65 @@
+/* MapComponents.css */
+@import "leaflet/dist/leaflet.css";
+@import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+
+.custom-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for current location marker */
+.current-location .leaflet-marker-icon {
+  border: 2px solid var(--white);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Add custom styling for leaflet routing machine */
+.leaflet-routing-container {
+  background-color: var(--white);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 300px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leaflet-routing-alt {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.leaflet-routing-alt h2 {
+  font-size: 1rem;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.leaflet-routing-alt h3 {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.leaflet-routing-alt table {
+  font-size: 0.85rem;
+}
+
+.leaflet-routing-icon {
+  background-color: var(--secondary-color);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.leaflet-routing-alternatives-container {
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.5rem;
+}
+
+/* Hide leaflet attribution link */
+.leaflet-control-attribution {
+  display: none;
+}

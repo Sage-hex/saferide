@@ -1,0 +1,129 @@
+/* BookingForm.css */
+.booking-form-container {
+    flex: 1;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    height: fit-content;
+  }
+  
+  .form-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-header h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .welcome-user {
+    color: var(--light-text);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .price-estimate {
+    background-color: var(--primary-light);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+  }
+  
+  .price-estimate p {
+    color: var(--primary-dark);
+    font-weight: 500;
+  }
+  
+  .price-estimate .price {
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+  
+  .booking-form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .booking-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .booking-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .booking-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  
+  /* Location input group with current location button */
+  .location-input-group {
+    position: relative;
+    display: flex;
+  }
+  
+  .location-input-group input {
+    flex: 1;
+  }
+  
+  .use-current-location {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  
+  .use-current-location:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
+  
+  .form-help {
+    margin-bottom: 1.5rem;
+    color: var(--light-text);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
+  .book-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .book-button:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .book-button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    .booking-form-container {
+      padding: 1.5rem;
+    }
+  }

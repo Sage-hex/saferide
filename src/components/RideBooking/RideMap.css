@@ -1,0 +1,26 @@
+/* RideMap.css */
+.map-container {
+    flex: 2;
+    height: 500px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  
+  .leaflet-map {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .trip-map {
+    height: 300px;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  @media (max-width: 992px) {
+    .map-container {
+      height: 400px;
+    }
+  }
