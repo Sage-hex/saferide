@@ -1,12 +1,46 @@
 import React, { useState } from "react";
 import "./Login.css";
-import driverImage from "../../assets/driver.png"; // Same image or replace with another
+import driverImage from "../../assets/driver.png";
+import { auth, db } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [role, setRole] = useState("user");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+
+        if (data.role !== role) {
+          toast.error(`You are not registered as a ${role}.`);
+          return;
+        }
+
+        toast.success("Login successful!");
+        // Redirect logic here
+      } else {
+        toast.error("No user data found.");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -18,9 +52,21 @@ const Login = () => {
       <div className="login-form-section">
         <div className="login-form-wrapper">
           <h2>Welcome back to SafeRide</h2>
-          <form>
-            <input type="email" placeholder="Enter Email" />
-            <input type="password" placeholder="Password" />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
             <div className="user-type-selector">
               <label>
