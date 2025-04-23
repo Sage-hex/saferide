@@ -10,6 +10,7 @@ const firebaseConfig = {
   authDomain: "saferide-88d4c.firebaseapp.com",
   projectId: "saferide-88d4c",
   storageBucket: "saferide-88d4c.firebasestorage.app",
+//   storageBucket: "saferide-88d4c.appspot.com",  // Corrected this line
   messagingSenderId: "546030206899",
   appId: "1:546030206899:web:253da2aef6860941ce55c6",
   measurementId: "G-YCJ1B3XWXZ"
@@ -17,7 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);

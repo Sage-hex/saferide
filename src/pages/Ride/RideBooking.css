@@ -1,0 +1,464 @@
+RideBooking.css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --primary-color: #00B074;
+  --primary-dark: #009061;
+  --primary-light: #E6F8F1;
+  --secondary-color: #4285F4;
+  --text-color: #333333;
+  --light-text: #6E6E6E;
+  --lighter-text: #A0A0A0;
+  --border-color: #E0E0E0;
+  --background-color: #F9F9F9;
+  --white: #FFFFFF;
+  --error-color: #E53935;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.ride-booking-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styles */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+}
+
+.logo h1 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-menu span {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.sign-out-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sign-out-btn:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Auth message for not logged in users */
+.auth-message {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 5rem auto;
+}
+
+.auth-message h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.auth-message p {
+  color: var(--light-text);
+  margin-bottom: 1.5rem;
+}
+
+/* Booking and map container */
+.booking-map-container {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Booking form */
+.booking-form-container {
+  flex: 1;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  height: fit-content;
+}
+
+.form-header {
+  margin-bottom: 1.5rem;
+}
+
+.form-header h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.welcome-user {
+  color: var(--light-text);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.price-estimate {
+  background-color: var(--primary-light);
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  margin-top: 1rem;
+}
+
+.price-estimate p {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.price-estimate .price {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.booking-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.booking-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.booking-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.booking-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form-help {
+  margin-bottom: 1.5rem;
+  color: var(--light-text);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.book-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.book-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.book-button:disabled {
+  background-color: var(--lighter-text);
+  cursor: not-allowed;
+}
+
+/* Map container */
+.map-container {
+  flex: 2;
+  height: 500px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.google-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Booking confirmation */
+.booking-confirmation {
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.confirmation-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.confirmation-header h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.driver-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--primary-light);
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.driver-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.driver-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.driver-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.driver-name h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  color: #FFD700;
+  letter-spacing: -2px;
+}
+
+.rating-count {
+  color: var(--light-text);
+  font-weight: 500;
+}
+
+.vehicle-info {
+  text-align: right;
+}
+
+.vehicle-details p {
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+}
+
+.ride-info {
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-label {
+  color: var(--light-text);
+  font-weight: 500;
+}
+
+.info-value {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.info-item.price .info-value {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.trip-map {
+  height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-map {
+  width: 100%;
+  height: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-buttons button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.contact-driver {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.contact-driver:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.cancel-ride {
+  background-color: #FFEBEE;
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+}
+
+.cancel-ride:hover {
+  background-color: var(--error-color);
+  color: var(--white);
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+/* Footer */
+.app-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--light-text);
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .booking-map-container {
+    flex-direction: column;
+  }
+  
+  .map-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1rem;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .booking-form-container, 
+  .booking-confirmation {
+    padding: 1.5rem;
+  }
+  
+  .driver-details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .vehicle-info {
+    text-align: center;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-message {
+    padding: 1.5rem;
+  }
+  
+  .driver-info {
+    flex-direction: column;
+    text-align: center;
+  }
+}

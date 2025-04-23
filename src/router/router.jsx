@@ -4,7 +4,7 @@ import { element } from "prop-types";
 import Home from "../pages/Home/Home";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
-import Ride from "../pages/Ride/Ride";
+import RideBooking from "../pages/Ride/RideBooking";
 import NotFound from "../pages/NotFound/NotFound";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
@@ -31,10 +31,7 @@ const router = createBrowserRouter([
                 element:<Contact/>,
             },
 
-            {
-                path:'/ride',
-                element: <Ride/>,
-            },
+            
 
             {
                 path:'*',
@@ -51,7 +48,11 @@ const router = createBrowserRouter([
     {
         path:'/login',
         element:<Login/>
-    }
+    },
+    {
+        path:'/ride',
+        element: <RideBooking/>,
+    },
 ])
 
 export default router;
