@@ -12,14 +12,14 @@ import './RideBooking.css';
 const createCustomIcon = (color, label) => {
   return L.divIcon({
     className: 'custom-marker',
-    html: `<div style="background-color: ${color}; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; font-weight: bold;">${label}</div>`,
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
+    html: `<div style="background-color: ${color}; color: white; border-radius: 50%; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">${label}</div>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 18]
   });
 };
 
 // Component to handle map click events and update
-const MapEvents = ({ onMapClick }) => {
+const MapEvents = ({ onMapClick, selectedLocations }) => {
   const map = useMap();
   
   useEffect(() => {
@@ -27,10 +27,21 @@ const MapEvents = ({ onMapClick }) => {
     
     map.on('click', onMapClick);
     
+    // Center and zoom the map to fit both markers if they exist
+    if (selectedLocations.origin && selectedLocations.destination) {
+      const bounds = L.latLngBounds(
+        [selectedLocations.origin.lat, selectedLocations.origin.lng],
+        [selectedLocations.destination.lat, selectedLocations.destination.lng]
+      );
+      map.fitBounds(bounds, { padding: [50, 50] });
+    } else if (selectedLocations.origin) {
+      map.setView([selectedLocations.origin.lat, selectedLocations.origin.lng], 14);
+    }
+    
     return () => {
       map.off('click', onMapClick);
     };
-  }, [map, onMapClick]);
+  }, [map, onMapClick, selectedLocations]);
   
   return null;
 };
@@ -51,23 +62,40 @@ const RoutingControl = ({ waypoints, setEstimatedPrice }) => {
     const routingControl = L.Routing.control({
       waypoints: waypoints.map(point => L.latLng(point.lat, point.lng)),
       routeWhileDragging: false,
-      showAlternatives: false,
+      showAlternatives: true,
+      addWaypoints: false,
       lineOptions: {
-        styles: [{ color: '#4285F4', weight: 5 }]
+        styles: [{ color: '#4285F4', weight: 6, opacity: 0.7 }],
+        extendToWaypoints: true,
+        missingRouteTolerance: 0
       },
-      createMarker: () => null // Don't create default markers
+      createMarker: () => null, // Don't create default markers
+      fitSelectedRoutes: true
     }).addTo(map);
     
     routingControl.on('routesfound', (e) => {
       const routes = e.routes;
       const distanceInKm = routes[0].summary.totalDistance / 1000;
+      const timeInMinutes = Math.round(routes[0].summary.totalTime / 60);
       
       // Calculate estimated price based on distance
       const basePrice = 500; // Base price in local currency
       const pricePerKm = 150; // Price per km
-      const calculatedPrice = basePrice + (distanceInKm * pricePerKm);
+      let calculatedPrice = basePrice + (distanceInKm * pricePerKm);
+      
+      // Add surge pricing during peak hours (if applicable)
+      const currentHour = new Date().getHours();
+      if (currentHour >= 7 && currentHour <= 9 || currentHour >= 16 && currentHour <= 19) {
+        calculatedPrice *= 1.2; // 20% surge during peak hours
+      }
       
       setEstimatedPrice(Math.round(calculatedPrice));
+      
+      // Center the map to show the entire route
+      const bounds = L.latLngBounds(waypoints.map(point => [point.lat, point.lng]));
+      map.fitBounds(bounds, { padding: [50, 50] });
+      
+      toast.info(`Estimated journey: ${Math.round(distanceInKm * 10) / 10} km, approximately ${timeInMinutes} minutes`);
     });
     
     routingControlRef.current = routingControl;
@@ -102,6 +130,7 @@ const RideBooking = () => {
     destination: null
   });
   const [routeWaypoints, setRouteWaypoints] = useState([]);
+  const [currentUserLocation, setCurrentUserLocation] = useState(null);
 
   // Price calculation
   const [estimatedPrice, setEstimatedPrice] = useState(null);
@@ -142,9 +171,35 @@ const RideBooking = () => {
             lng: position.coords.longitude
           };
           setCenter(userLocation);
+          setCurrentUserLocation(userLocation); // Store the user's current location
+          
+          // If origin isn't set yet, automatically use current location
+          if (!selectedLocations.origin) {
+            const reverseGeocode = async (lat, lng) => {
+              try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+                const data = await response.json();
+                return data.display_name || "Current Location";
+              } catch (error) {
+                console.error("Error with reverse geocoding:", error);
+                return "Current Location";
+              }
+            };
+            
+            reverseGeocode(userLocation.lat, userLocation.lng)
+              .then(locationName => {
+                setLocation(locationName);
+                setSelectedLocations({
+                  ...selectedLocations,
+                  origin: userLocation
+                });
+                toast.info("Using your current location as pickup point. Select your destination on the map.");
+              });
+          }
         },
         (error) => {
           console.error("Error getting current location:", error);
+          toast.error("Could not get your location. Please allow location access or select it manually on the map.");
         }
       );
     }
@@ -203,19 +258,57 @@ const RideBooking = () => {
     const clickedLat = e.latlng.lat;
     const clickedLng = e.latlng.lng;
     
-    // Set location or destination based on which is empty first
+    // Fetch the address name for better UX
+    const reverseGeocode = async (lat, lng) => {
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        const data = await response.json();
+        return data.display_name || "Selected location";
+      } catch (error) {
+        console.error("Error with reverse geocoding:", error);
+        return "Selected location";
+      }
+    };
+    
     if (!selectedLocations.origin) {
-      setSelectedLocations({
-        ...selectedLocations,
-        origin: { lat: clickedLat, lng: clickedLng }
-      });
-      setLocation("Selected on map");
+      // Set origin location
+      setIsLoading(true);
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setLocation(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            origin: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.info("Pickup location selected. Now select your destination.");
+        });
     } else if (!selectedLocations.destination) {
-      setSelectedLocations({
-        ...selectedLocations,
-        destination: { lat: clickedLat, lng: clickedLng }
-      });
-      setDestination("Selected on map");
+      // Set destination location
+      setIsLoading(true);
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setDestination(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            destination: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.success("Route calculated! You can now book your ride.");
+        });
+    } else {
+      // If both locations are already set, allow changing the destination
+      setIsLoading(true);
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setDestination(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            destination: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.info("Destination updated!");
+        });
     }
   };
   
@@ -229,6 +322,57 @@ const RideBooking = () => {
     setRideDetails(null);
     setEstimatedPrice(null);
     toast.info("Ride cancelled");
+    
+    // Restore current location as origin if available
+    if (currentUserLocation) {
+      const reverseGeocode = async (lat, lng) => {
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+          const data = await response.json();
+          return data.display_name || "Current Location";
+        } catch (error) {
+          console.error("Error with reverse geocoding:", error);
+          return "Current Location";
+        }
+      };
+      
+      reverseGeocode(currentUserLocation.lat, currentUserLocation.lng)
+        .then(locationName => {
+          setLocation(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            origin: currentUserLocation
+          });
+        });
+    }
+  };
+
+  // Function to use current location as pickup point
+  const useCurrentLocationAsPickup = () => {
+    if (currentUserLocation) {
+      const reverseGeocode = async (lat, lng) => {
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+          const data = await response.json();
+          return data.display_name || "Current Location";
+        } catch (error) {
+          console.error("Error with reverse geocoding:", error);
+          return "Current Location";
+        }
+      };
+      
+      reverseGeocode(currentUserLocation.lat, currentUserLocation.lng)
+        .then(locationName => {
+          setLocation(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            origin: currentUserLocation
+          });
+          toast.info("Using your current location as pickup point.");
+        });
+    } else {
+      toast.error("Could not detect your current location. Please enable location services.");
+    }
   };
 
   return (
@@ -319,12 +463,22 @@ const RideBooking = () => {
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     
+                    {currentUserLocation && (
+                      <Marker 
+                        position={[currentUserLocation.lat, currentUserLocation.lng]} 
+                        icon={createCustomIcon('#FF5722', 'You')}
+                        className="current-location"
+                      >
+                        <Popup>Your Current Location</Popup>
+                      </Marker>
+                    )}
+                    
                     {selectedLocations.origin && (
                       <Marker 
                         position={[selectedLocations.origin.lat, selectedLocations.origin.lng]} 
                         icon={createCustomIcon('#00B074', 'A')}
                       >
-                        <Popup>Pickup Location</Popup>
+                        <Popup>Pickup Location: {location}</Popup>
                       </Marker>
                     )}
                     
@@ -333,7 +487,7 @@ const RideBooking = () => {
                         position={[selectedLocations.destination.lat, selectedLocations.destination.lng]} 
                         icon={createCustomIcon('#4285F4', 'B')}
                       >
-                        <Popup>Destination</Popup>
+                        <Popup>Destination: {destination}</Popup>
                       </Marker>
                     )}
                     
@@ -343,6 +497,8 @@ const RideBooking = () => {
                         setEstimatedPrice={setEstimatedPrice}
                       />
                     )}
+                    
+                    <MapEvents selectedLocations={selectedLocations} onMapClick={() => {}} />
                   </MapContainer>
                 </div>
                 
@@ -373,14 +529,25 @@ const RideBooking = () => {
                   <form className="booking-form" onSubmit={handleBookRide}>
                     <div className="form-group">
                       <label htmlFor="location">Pickup Location</label>
-                      <input 
-                        id="location"
-                        type="text" 
-                        value={location} 
-                        onChange={(e) => setLocation(e.target.value)}
-                        placeholder="Enter pickup location" 
-                        required
-                      />
+                      <div className="location-input-group">
+                        <input 
+                          id="location"
+                          type="text" 
+                          value={location} 
+                          onChange={(e) => setLocation(e.target.value)}
+                          placeholder="Enter pickup location" 
+                          required
+                        />
+                        {currentUserLocation && (
+                          <button 
+                            type="button" 
+                            className="use-current-location" 
+                            onClick={useCurrentLocationAsPickup}
+                          >
+                            Use current location
+                          </button>
+                        )}
+                      </div>
                     </div>
                     
                     <div className="form-group">
@@ -410,7 +577,7 @@ const RideBooking = () => {
                       <p>Click on the map to select pickup and destination points</p>
                     </div>
                     
-                    <button type="submit" className="book-button" disabled={isLoading}>
+                    <button type="submit" className="book-button" disabled={isLoading || !selectedLocations.origin || !selectedLocations.destination || !pickupTime}>
                       {isLoading ? 'Calculating route...' : 'Book Ride Now'}
                     </button>
                   </form>
@@ -419,7 +586,7 @@ const RideBooking = () => {
                 <div className="map-container">
                   <MapContainer 
                     center={center} 
-                    zoom={12} 
+                    zoom={13} 
                     className="leaflet-map"
                   >
                     <TileLayer
@@ -427,14 +594,22 @@ const RideBooking = () => {
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     
-                    <MapEvents onMapClick={handleMapClick} />
+                    {currentUserLocation && (
+                      <Marker 
+                        position={[currentUserLocation.lat, currentUserLocation.lng]} 
+                        icon={createCustomIcon('#FF5722', 'You')}
+                        className="current-location"
+                      >
+                        <Popup>Your Current Location</Popup>
+                      </Marker>
+                    )}
                     
                     {selectedLocations.origin && (
                       <Marker 
                         position={[selectedLocations.origin.lat, selectedLocations.origin.lng]} 
                         icon={createCustomIcon('#00B074', 'A')}
                       >
-                        <Popup>Pickup Location</Popup>
+                        <Popup>Pickup Location: {location}</Popup>
                       </Marker>
                     )}
                     
@@ -443,7 +618,7 @@ const RideBooking = () => {
                         position={[selectedLocations.destination.lat, selectedLocations.destination.lng]} 
                         icon={createCustomIcon('#4285F4', 'B')}
                       >
-                        <Popup>Destination</Popup>
+                        <Popup>Destination: {destination}</Popup>
                       </Marker>
                     )}
                     
@@ -453,6 +628,8 @@ const RideBooking = () => {
                         setEstimatedPrice={setEstimatedPrice}
                       />
                     )}
+                    
+                    <MapEvents onMapClick={handleMapClick} selectedLocations={selectedLocations} />
                   </MapContainer>
                 </div>
               </>
