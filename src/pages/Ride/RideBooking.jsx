@@ -40,16 +40,41 @@ const RideBooking = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   
   // Auth listener
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+  //     if (currentUser) {
+  //       setUser(currentUser);
+        
+  //       // Get additional user data from Firestore
+  //       try {
+  //         const userRef = doc(db, "users", currentUser.uid);
+  //         const userSnap = await getDoc(userRef);
+          
+  //         if (userSnap.exists()) {
+  //           setUserData(userSnap.data());
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching user data:", error);
+  //       }
+  //     } else {
+  //       setUser(null);
+  //       setUserData(null);
+  //     }
+  //   });
+    
+  //   return () => unsubscribe();
+  // }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        
-        // Get additional user data from Firestore
+  
+        // Fetch user data from Firestore
         try {
           const userRef = doc(db, "users", currentUser.uid);
           const userSnap = await getDoc(userRef);
-          
+  
           if (userSnap.exists()) {
             setUserData(userSnap.data());
           }
@@ -61,33 +86,66 @@ const RideBooking = () => {
         setUserData(null);
       }
     });
-    
+  
+    // Cleanup function to avoid duplicate listeners
     return () => unsubscribe();
   }, []);
   
   // Try to get user's current location
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const userLocation = {
+  //           lat: position.coords.latitude,
+  //           lng: position.coords.longitude
+  //         };
+  //         setCenter(userLocation);
+  //         setCurrentUserLocation(userLocation); // Store the user's current location
+          
+  //         // If origin isn't set yet, automatically use current location
+  //         if (!selectedLocations.origin) {
+  //           reverseGeocode(userLocation.lat, userLocation.lng)
+  //             .then(locationName => {
+  //               setLocation(locationName);
+  //               setSelectedLocations({
+  //                 ...selectedLocations,
+  //                 origin: userLocation
+  //               });
+  //               toast.info("Using your current location as pickup point. Select your destination on the map.");
+  //             });
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error("Error getting current location:", error);
+  //         toast.error("Could not get your location. Please allow location access or select it manually on the map.");
+  //       }
+  //     );
+  //   }
+  // }, []);
+
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userLocation = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           };
           setCenter(userLocation);
-          setCurrentUserLocation(userLocation); // Store the user's current location
-          
-          // If origin isn't set yet, automatically use current location
+          setCurrentUserLocation(userLocation);
+  
+          // Only toast if origin is not already set
           if (!selectedLocations.origin) {
-            reverseGeocode(userLocation.lat, userLocation.lng)
-              .then(locationName => {
-                setLocation(locationName);
-                setSelectedLocations({
-                  ...selectedLocations,
-                  origin: userLocation
-                });
-                toast.info("Using your current location as pickup point. Select your destination on the map.");
+            reverseGeocode(userLocation.lat, userLocation.lng).then((locationName) => {
+              setLocation(locationName);
+              setSelectedLocations({
+                ...selectedLocations,
+                origin: userLocation,
               });
+              toast.info("Using your current location as pickup point. Select your destination on the map.");
+            });
           }
         },
         (error) => {
@@ -96,7 +154,7 @@ const RideBooking = () => {
         }
       );
     }
-  }, []);
+  }, [selectedLocations.origin]); // Add dependency to avoid multiple calls
 
   // Update route waypoints when origin or destination changes
   useEffect(() => {
@@ -150,49 +208,90 @@ const RideBooking = () => {
   };
   
   // Map functions
+  // const handleMapClick = (e) => {
+  //   const clickedLat = e.latlng.lat;
+  //   const clickedLng = e.latlng.lng;
+    
+  //   if (!selectedLocations.origin) {
+  //     // Set origin location
+  //     setIsLoading(true);
+  //     reverseGeocode(clickedLat, clickedLng)
+  //       .then(locationName => {
+  //         setLocation(locationName);
+  //         setSelectedLocations({
+  //           ...selectedLocations,
+  //           origin: { lat: clickedLat, lng: clickedLng }
+  //         });
+  //         setIsLoading(false);
+  //         toast.info("Pickup location selected. Now select your destination.");
+  //       });
+  //   } else if (!selectedLocations.destination) {
+  //     // Set destination location
+  //     setIsLoading(true);
+  //     reverseGeocode(clickedLat, clickedLng)
+  //       .then(locationName => {
+  //         setDestination(locationName);
+  //         setSelectedLocations({
+  //           ...selectedLocations,
+  //           destination: { lat: clickedLat, lng: clickedLng }
+  //         });
+  //         setIsLoading(false);
+  //         toast.success("Route calculated! You can now book your ride.");
+  //       });
+  //   } else {
+  //     // If both locations are already set, allow changing the destination
+  //     setIsLoading(true);
+  //     reverseGeocode(clickedLat, clickedLng)
+  //       .then(locationName => {
+  //         setDestination(locationName);
+  //         setSelectedLocations({
+  //           ...selectedLocations,
+  //           destination: { lat: clickedLat, lng: clickedLng }
+  //         });
+  //         setIsLoading(false);
+  //         toast.info("Destination updated!");
+  //       });
+  //   }
+  // };
+
+
   const handleMapClick = (e) => {
     const clickedLat = e.latlng.lat;
     const clickedLng = e.latlng.lng;
-    
+  
     if (!selectedLocations.origin) {
-      // Set origin location
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng)
-        .then(locationName => {
-          setLocation(locationName);
-          setSelectedLocations({
-            ...selectedLocations,
-            origin: { lat: clickedLat, lng: clickedLng }
-          });
-          setIsLoading(false);
-          toast.info("Pickup location selected. Now select your destination.");
+      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
+        setLocation(locationName);
+        setSelectedLocations({
+          ...selectedLocations,
+          origin: { lat: clickedLat, lng: clickedLng },
         });
+        setIsLoading(false);
+        toast.info("Pickup location selected. Now select your destination.");
+      });
     } else if (!selectedLocations.destination) {
-      // Set destination location
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng)
-        .then(locationName => {
-          setDestination(locationName);
-          setSelectedLocations({
-            ...selectedLocations,
-            destination: { lat: clickedLat, lng: clickedLng }
-          });
-          setIsLoading(false);
-          toast.success("Route calculated! You can now book your ride.");
+      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
+        setDestination(locationName);
+        setSelectedLocations({
+          ...selectedLocations,
+          destination: { lat: clickedLat, lng: clickedLng },
         });
+        setIsLoading(false);
+        toast.success("Route calculated! You can now book your ride.");
+      });
     } else {
-      // If both locations are already set, allow changing the destination
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng)
-        .then(locationName => {
-          setDestination(locationName);
-          setSelectedLocations({
-            ...selectedLocations,
-            destination: { lat: clickedLat, lng: clickedLng }
-          });
-          setIsLoading(false);
-          toast.info("Destination updated!");
+      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
+        setDestination(locationName);
+        setSelectedLocations({
+          ...selectedLocations,
+          destination: { lat: clickedLat, lng: clickedLng },
         });
+        setIsLoading(false);
+        toast.info("Destination updated!");
+      });
     }
   };
   
