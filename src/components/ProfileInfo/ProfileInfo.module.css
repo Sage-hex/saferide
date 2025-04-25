@@ -1,90 +1,94 @@
-/* ProfileInfo.module.css */
 .profileInfoCard {
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .profileInfoCard:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  .cardTitle {
-    color: #333;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.profileInfoCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.cardTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-  
-  .profileItem {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.ratingContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
-    padding: 5px;
-    transition: background-color 0.2s ease;
-    border-radius: 4px;
-  }
-  
-  .profileItem:hover {
-    background-color: #f8f9fa;
-  }
-  
-  .icon {
-    color: #007bff;
-    margin-right: 10px;
-    min-width: 16px;
-  }
-  
-  .label {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.ratingText {
     font-weight: 600;
-    color: #555;
+    color: #1e293b;
+}
+
+.profileItem {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+.profileItem:hover {
+    background-color: #f8fafc;
+}
+
+.icon {
+    color: #64748b;
+    margin-right: 0.75rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.label {
+    font-weight: 500;
+    color: #64748b;
     margin: 0;
-    margin-right: 5px;
-    min-width: 50px;
-  }
-  
-  .value {
+    min-width: 70px;
+}
+
+.value {
     margin: 0;
-    color: #333;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .editProfileButton {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.editProfileButton {
     width: 100%;
-    padding: 8px 15px;
-    background-color: #f8f9fa;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 6px;
+    padding: 0.75rem;
+    background-color: #f8fafc;
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
+    gap: 0.5rem;
+    margin-top: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
     font-weight: 500;
-  }
-  
-  .editProfileButton:hover {
-    background-color: #007bff;
+}
+
+.editProfileButton:hover {
+    background-color: #3b82f6;
     color: white;
-  }
-  
-  .editIcon {
+}
+
+.editIcon {
     font-size: 0.9rem;
-  }
-  
-  @media (max-width: 768px) {
-    .profileInfoCard {
-      width: 100%;
-    }
-  }
+}

@@ -1,43 +1,85 @@
-/* NotificationItem.module.css */
 .notificationItem {
-    padding: 15px;
-    border-bottom: 1px solid #f0f0f0;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #fff;
-  }
-  
-  .notificationItem:last-child {
-    border-bottom: none;
-  }
-  
-  .icon {
-    color: #ffc107;
-    font-size: 1.2rem;
-  }
-  
-  .message {
-    margin: 0;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.notificationItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.notificationItem.success {
+    border-left: 4px solid #10b981;
+}
+
+.notificationItem.warning {
+    border-left: 4px solid #f59e0b;
+}
+
+.notificationItem.error {
+    border-left: 4px solid #ef4444;
+}
+
+.notificationItem.info {
+    border-left: 4px solid #3b82f6;
+}
+
+.iconContainer {
+    font-size: 1.25rem;
+    padding-top: 0.15rem;
+}
+
+.successIcon {
+    color: #10b981;
+}
+
+.warningIcon {
+    color: #f59e0b;
+}
+
+.errorIcon {
+    color: #ef4444;
+}
+
+.infoIcon {
+    color: #3b82f6;
+}
+
+.content {
     flex-grow: 1;
-    color: #333;
-  }
-  
-  .timestamp {
-    color: #777;
-    font-size: 0.8rem;
-  }
-  
-  /* Optional: Dismiss button styling */
-  /* .dismissButton {
+}
+
+.message {
+    margin: 0;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.timestamp {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.dismissButton {
     background: none;
     border: none;
-    color: #dc3545;
+    color: #94a3b8;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin-left: 10px;
-  }
-  
-  .dismissButton:hover {
-    text-decoration: underline;
-  } */
+    padding: 0.25rem;
+    margin-left: 0.5rem;
+    transition: color 0.2s;
+}
+
+.dismissButton:hover {
+    color: #64748b;
+}

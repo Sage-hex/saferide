@@ -1,162 +1,189 @@
-/* CurrentTrip.module.css */
 .currentTripCard {
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .currentTripEmpty {
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px dashed #ccc;
-    color: #777;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.currentTripCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.currentTripEmpty {
+    padding: 1.5rem;
+    background-color: #f8fafc;
+    border-radius: 0.75rem;
+    border: 1px dashed #cbd5e1;
+    color: #64748b;
     text-align: center;
-  }
-  
-  .currentTripTitle {
-    color: #333;
+    font-size: 0.95rem;
+}
+
+.currentTripTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-  
-  .passengerInfo {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.passengerInfo {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-  }
-  
-  .passengerName {
-    font-weight: bold;
-    margin: 0 15px 0 10px;
-    font-size: 1.1rem;
-  }
-  
-  .passengerContact {
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+}
+
+.passengerIcon {
+    font-size: 1.5rem;
+    color: #64748b;
+    background-color: #e2e8f0;
+    padding: 0.75rem;
+    border-radius: 50%;
+}
+
+.passengerName {
+    font-weight: 600;
     margin: 0;
-    color: #555;
-  }
-  
-  .icon {
-    font-size: 1.2rem;
-    color: #007bff;
-  }
-  
-  .passengerIcon {
-    font-size: 1.8rem;
-    color: #6c757d;
-  }
-  
-  .phoneIcon {
-    color: #28a745;
-  }
-  
-  .locationDetails {
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+
+.passengerContact {
+    margin: 0 0 0 auto;
+    color: #3b82f6;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.phoneIcon {
+    color: #10b981;
+}
+
+.locationDetails {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    padding: 12px;
-    border-radius: 6px;
-  }
-  
-  .locationItem {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.locationItem {
     display: flex;
-    align-items: center;
-  }
-  
-  .pickupIcon {
-    color: #28a745;
-  }
-  
-  .destinationIcon {
-    color: #dc3545;
-  }
-  
-  .locationText {
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.pickupIcon {
+    color: #10b981;
+    margin-top: 0.25rem;
+}
+
+.destinationIcon {
+    color: #ef4444;
+    margin-top: 0.25rem;
+}
+
+.locationText {
     margin: 0;
-    margin-left: 10px;
-    color: #333;
-  }
-  
-  .tripStatus {
+    color: #334155;
+}
+
+.locationText strong {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.tripStatus {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
-    padding: 12px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    margin-bottom: 15px;
-  }
-  
-  .statusText, .etaText {
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.statusText {
     margin: 0;
-  }
-  
-  .statusValue {
-    font-weight: bold;
-    color: #28a745;
-  }
-  
-  .clockIcon {
-    color: #6c757d;
-  }
-  
-  .currentTripActions {
+    color: #64748b;
+}
+
+.statusValue {
+    font-weight: 600;
+    color: #10b981;
+}
+
+.etaText {
+    margin: 0;
+    color: #64748b;
+}
+
+.clockIcon {
+    color: #f59e0b;
+}
+
+.currentTripActions {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-  }
-  
-  .navigationButton,
-  .completeButton {
-    padding: 10px 15px;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.navigationButton,
+.completeButton {
+    padding: 0.75rem 1.25rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.5rem;
     color: white;
     cursor: pointer;
-    font-size: 1rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-  }
-  
-  .navigationButton {
-    background-color: #007bff;
-  }
-  
-  .navigationButton:hover {
-    background-color: #0069d9;
-  }
-  
-  .completeButton {
-    background-color: #28a745;
-  }
-  
-  .completeButton:hover {
-    background-color: #218838;
-  }
-  
-  @media (max-width: 768px) {
+    gap: 0.5rem;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.navigationButton {
+    background-color: #3b82f6;
+}
+
+.navigationButton:hover {
+    background-color: #2563eb;
+}
+
+.completeButton {
+    background-color: #10b981;
+}
+
+.completeButton:hover {
+    background-color: #059669;
+}
+
+@media (max-width: 768px) {
     .currentTripActions {
-      flex-direction: column;
-      gap: 10px;
+        flex-direction: column;
     }
     
-    .navigationButton, .completeButton {
-      width: 100%;
-      justify-content: center;
+    .navigationButton,
+    .completeButton {
+        justify-content: center;
+        width: 100%;
     }
-  }
+}

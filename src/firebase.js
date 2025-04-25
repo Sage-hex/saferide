@@ -1,15 +1,55 @@
-// Import the functions you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getAnalytics } from "firebase/analytics";
+// // Import the functions you need
+// import { initializeApp } from "firebase/app";
+// import { getAuth } from "firebase/auth";
+// import { getFirestore } from "firebase/firestore";
+// import { getAnalytics } from "firebase/analytics";
 
-// Your Firebase config
+// // Your Firebase config
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBKin7JaD-R8FKE5MV79XKzC5UoYksC3s8",
+//   authDomain: "saferide-88d4c.firebaseapp.com",
+//   projectId: "saferide-88d4c",
+//   storageBucket: "saferide-88d4c.appspot.com", // Corrected this line
+//   messagingSenderId: "546030206899",
+//   appId: "1:546030206899:web:253da2aef6860941ce55c6",
+//   measurementId: "G-YCJ1B3XWXZ"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// // const analytics = getAnalytics(app);
+
+// export const auth = getAuth(app);
+// export const db = getFirestore(app);
+
+
+
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "firebase/auth";
+import { 
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp
+} from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBKin7JaD-R8FKE5MV79XKzC5UoYksC3s8",
   authDomain: "saferide-88d4c.firebaseapp.com",
   projectId: "saferide-88d4c",
-  storageBucket: "saferide-88d4c.appspot.com", // Corrected this line
+  storageBucket: "saferide-88d4c.appspot.com",
   messagingSenderId: "546030206899",
   appId: "1:546030206899:web:253da2aef6860941ce55c6",
   measurementId: "G-YCJ1B3XWXZ"
@@ -17,7 +57,25 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Export all Firebase services you need
+export { 
+  auth,
+  db,
+  // Firestore functions
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp,
+  // Auth functions
+  onAuthStateChanged
+};

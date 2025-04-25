@@ -42,7 +42,7 @@ import { db } from "../firebase"; // Adjust the path to your Firebase config
  * @param {number} [rideData.estimatedDuration] - Estimated duration in minutes
  * @param {number} [rideData.passengerRating] - Optional passenger rating
  */
-async function bookRide({
+export async function bookRide({
   userId,
   origin,
   destination,
