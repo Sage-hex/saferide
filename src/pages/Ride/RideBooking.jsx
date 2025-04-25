@@ -5,6 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import './RideBooking.css';
+import { bookRide } from "../../services/rideRequestData"; // Adjust the path to your service file
+
 
 // Import components
 import RideHeader from '../../components/RideBooking/RideHeader';
@@ -40,41 +42,16 @@ const RideBooking = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   
   // Auth listener
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-  //     if (currentUser) {
-  //       setUser(currentUser);
-        
-  //       // Get additional user data from Firestore
-  //       try {
-  //         const userRef = doc(db, "users", currentUser.uid);
-  //         const userSnap = await getDoc(userRef);
-          
-  //         if (userSnap.exists()) {
-  //           setUserData(userSnap.data());
-  //         }
-  //       } catch (error) {
-  //         console.error("Error fetching user data:", error);
-  //       }
-  //     } else {
-  //       setUser(null);
-  //       setUserData(null);
-  //     }
-  //   });
-    
-  //   return () => unsubscribe();
-  // }, []);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-  
-        // Fetch user data from Firestore
+        
+        // Get additional user data from Firestore
         try {
           const userRef = doc(db, "users", currentUser.uid);
           const userSnap = await getDoc(userRef);
-  
+          
           if (userSnap.exists()) {
             setUserData(userSnap.data());
           }
@@ -86,66 +63,33 @@ const RideBooking = () => {
         setUserData(null);
       }
     });
-  
-    // Cleanup function to avoid duplicate listeners
+    
     return () => unsubscribe();
   }, []);
   
   // Try to get user's current location
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const userLocation = {
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude
-  //         };
-  //         setCenter(userLocation);
-  //         setCurrentUserLocation(userLocation); // Store the user's current location
-          
-  //         // If origin isn't set yet, automatically use current location
-  //         if (!selectedLocations.origin) {
-  //           reverseGeocode(userLocation.lat, userLocation.lng)
-  //             .then(locationName => {
-  //               setLocation(locationName);
-  //               setSelectedLocations({
-  //                 ...selectedLocations,
-  //                 origin: userLocation
-  //               });
-  //               toast.info("Using your current location as pickup point. Select your destination on the map.");
-  //             });
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error("Error getting current location:", error);
-  //         toast.error("Could not get your location. Please allow location access or select it manually on the map.");
-  //       }
-  //     );
-  //   }
-  // }, []);
-
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userLocation = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude,
+            lng: position.coords.longitude
           };
           setCenter(userLocation);
-          setCurrentUserLocation(userLocation);
-  
-          // Only toast if origin is not already set
+          setCurrentUserLocation(userLocation); // Store the user's current location
+          
+          // If origin isn't set yet, automatically use current location
           if (!selectedLocations.origin) {
-            reverseGeocode(userLocation.lat, userLocation.lng).then((locationName) => {
-              setLocation(locationName);
-              setSelectedLocations({
-                ...selectedLocations,
-                origin: userLocation,
+            reverseGeocode(userLocation.lat, userLocation.lng)
+              .then(locationName => {
+                setLocation(locationName);
+                setSelectedLocations({
+                  ...selectedLocations,
+                  origin: userLocation
+                });
+                toast.info("Using your current location as pickup point. Select your destination on the map.");
               });
-              toast.info("Using your current location as pickup point. Select your destination on the map.");
-            });
           }
         },
         (error) => {
@@ -154,7 +98,7 @@ const RideBooking = () => {
         }
       );
     }
-  }, [selectedLocations.origin]); // Add dependency to avoid multiple calls
+  }, []);
 
   // Update route waypoints when origin or destination changes
   useEffect(() => {
@@ -180,118 +124,140 @@ const RideBooking = () => {
   };
   
   // Handle ride booking
-  const handleBookRide = (e) => {
-    e.preventDefault();
-    
-    if (!location || !destination || !pickupTime) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-    
+  
+// const handleBookRide = async (e) => {
+//   e.preventDefault();
+
+//   if (!location || !destination || !pickupTime) {
+//     toast.error("Please fill in all fields");
+//     return;
+//   }
+
+//   try {
+//     // Call the bookRide function
+//     await bookRide({
+//       userId: user.uid, // The logged-in user's ID
+//       origin: selectedLocations.origin,
+//       destination: selectedLocations.destination,
+//       pickupTime,
+//     });
+
+//     toast.success("Ride request created successfully!");
+
+//     // Simulate booking confirmation
+//     const estimatedTimeMinutes = Math.floor(Math.random() * 15) + 5;
+//     const driverName = ["Maria", "John", "Ade", "Tunde", "Sarah"][Math.floor(Math.random() * 5)];
+//     const vehicleDetails = ["Toyota Camry", "Honda Accord", "Kia Rio", "Hyundai Elantra", "Toyota Corolla"][Math.floor(Math.random() * 5)];
+//     const vehicleColor = ["White", "Black", "Silver", "Blue", "Red"][Math.floor(Math.random() * 5)];
+//     const vehiclePlate = `LG-${Math.floor(100 + Math.random() * 900)}-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+
+//     setRideDetails({
+//       driverName,
+//       estimatedTimeMinutes,
+//       vehicleDetails,
+//       vehicleColor,
+//       vehiclePlate,
+//     });
+
+//     setBookingSubmitted(true);
+//   } catch (error) {
+//     console.error("Error creating ride request:", error);
+//     toast.error("Failed to create ride request. Please try again.");
+//   }
+// };
+  
+
+
+const handleBookRide = async (e) => {
+  e.preventDefault();
+
+  if (!location || !destination || !pickupTime) {
+    toast.error("Please fill in all fields");
+    return;
+  }
+
+  try {
+    // Call the bookRide function with additional fields
+    await bookRide({
+      userId: user.uid, // The logged-in user's ID
+      origin: selectedLocations.origin,
+      destination: selectedLocations.destination,
+      pickupTime,
+      passengerName: userData?.name || "Anonymous", // Use user's name or fallback to "Anonymous"
+      estimatedFare: 25.0, // Replace with actual fare calculation logic
+      estimatedDistance: 10.5, // Replace with actual distance calculation logic
+      estimatedDuration: 15, // Replace with actual duration calculation logic
+      paymentMethod: "Credit Card", // Replace with actual payment method
+      passengerRating: 4.8, // Replace with actual passenger rating if available
+    });
+
+    toast.success("Ride request created successfully!");
+
     // Simulate booking confirmation
     const estimatedTimeMinutes = Math.floor(Math.random() * 15) + 5;
     const driverName = ["Maria", "John", "Ade", "Tunde", "Sarah"][Math.floor(Math.random() * 5)];
     const vehicleDetails = ["Toyota Camry", "Honda Accord", "Kia Rio", "Hyundai Elantra", "Toyota Corolla"][Math.floor(Math.random() * 5)];
     const vehicleColor = ["White", "Black", "Silver", "Blue", "Red"][Math.floor(Math.random() * 5)];
     const vehiclePlate = `LG-${Math.floor(100 + Math.random() * 900)}-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
-    
+
     setRideDetails({
       driverName,
       estimatedTimeMinutes,
       vehicleDetails,
       vehicleColor,
-      vehiclePlate
+      vehiclePlate,
     });
-    
-    toast.success("Ride booked successfully!");
+
     setBookingSubmitted(true);
-  };
-  
+  } catch (error) {
+    console.error("Error creating ride request:", error);
+    toast.error("Failed to create ride request. Please try again.");
+  }
+};
   // Map functions
-  // const handleMapClick = (e) => {
-  //   const clickedLat = e.latlng.lat;
-  //   const clickedLng = e.latlng.lng;
-    
-  //   if (!selectedLocations.origin) {
-  //     // Set origin location
-  //     setIsLoading(true);
-  //     reverseGeocode(clickedLat, clickedLng)
-  //       .then(locationName => {
-  //         setLocation(locationName);
-  //         setSelectedLocations({
-  //           ...selectedLocations,
-  //           origin: { lat: clickedLat, lng: clickedLng }
-  //         });
-  //         setIsLoading(false);
-  //         toast.info("Pickup location selected. Now select your destination.");
-  //       });
-  //   } else if (!selectedLocations.destination) {
-  //     // Set destination location
-  //     setIsLoading(true);
-  //     reverseGeocode(clickedLat, clickedLng)
-  //       .then(locationName => {
-  //         setDestination(locationName);
-  //         setSelectedLocations({
-  //           ...selectedLocations,
-  //           destination: { lat: clickedLat, lng: clickedLng }
-  //         });
-  //         setIsLoading(false);
-  //         toast.success("Route calculated! You can now book your ride.");
-  //       });
-  //   } else {
-  //     // If both locations are already set, allow changing the destination
-  //     setIsLoading(true);
-  //     reverseGeocode(clickedLat, clickedLng)
-  //       .then(locationName => {
-  //         setDestination(locationName);
-  //         setSelectedLocations({
-  //           ...selectedLocations,
-  //           destination: { lat: clickedLat, lng: clickedLng }
-  //         });
-  //         setIsLoading(false);
-  //         toast.info("Destination updated!");
-  //       });
-  //   }
-  // };
-
-
   const handleMapClick = (e) => {
     const clickedLat = e.latlng.lat;
     const clickedLng = e.latlng.lng;
-  
+    
     if (!selectedLocations.origin) {
+      // Set origin location
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
-        setLocation(locationName);
-        setSelectedLocations({
-          ...selectedLocations,
-          origin: { lat: clickedLat, lng: clickedLng },
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setLocation(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            origin: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.info("Pickup location selected. Now select your destination.");
         });
-        setIsLoading(false);
-        toast.info("Pickup location selected. Now select your destination.");
-      });
     } else if (!selectedLocations.destination) {
+      // Set destination location
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
-        setDestination(locationName);
-        setSelectedLocations({
-          ...selectedLocations,
-          destination: { lat: clickedLat, lng: clickedLng },
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setDestination(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            destination: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.success("Route calculated! You can now book your ride.");
         });
-        setIsLoading(false);
-        toast.success("Route calculated! You can now book your ride.");
-      });
     } else {
+      // If both locations are already set, allow changing the destination
       setIsLoading(true);
-      reverseGeocode(clickedLat, clickedLng).then((locationName) => {
-        setDestination(locationName);
-        setSelectedLocations({
-          ...selectedLocations,
-          destination: { lat: clickedLat, lng: clickedLng },
+      reverseGeocode(clickedLat, clickedLng)
+        .then(locationName => {
+          setDestination(locationName);
+          setSelectedLocations({
+            ...selectedLocations,
+            destination: { lat: clickedLat, lng: clickedLng }
+          });
+          setIsLoading(false);
+          toast.info("Destination updated!");
         });
-        setIsLoading(false);
-        toast.info("Destination updated!");
-      });
     }
   };
   

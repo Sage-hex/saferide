@@ -70,6 +70,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";
+import DriverDashboard from "../pages/Driver/DriverDashboard";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
     path:'/ride',
     element: <PrivateRoute><RideBooking /></PrivateRoute>, // Wrap RideBooking
   },
+  {
+    path:"driver",
+    element:<DriverDashboard/>
+  }
 ]);
 
 export default router;

@@ -1,0 +1,118 @@
+/* TripHistoryItem.module.css */
+.tripHistoryItem {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tripHistoryItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dateAndTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.date, .time {
+  margin: 0;
+  color: #555;
+}
+
+.date {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.time {
+  font-size: 0.9rem;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.location {
+  margin: 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.icon {
+  color: #007bff;
+}
+
+.from {
+  color: #28a745;
+}
+
+.to {
+  color: #dc3545;
+}
+
+.arrow {
+  color: #6c757d;
+}
+
+.earnings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fare {
+  margin: 0 0 0 8px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.statusText {
+  margin: 0 0 0 8px;
+  color: #28a745;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .tripHistoryItem {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  
+  .route {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .tripHistoryItem {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  
+  .route, .dateAndTime, .earnings, .status {
+    grid-column: 1;
+  }
+  
+  .status, .earnings {
+    justify-content: flex-start;
+  }
+}

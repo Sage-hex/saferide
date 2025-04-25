@@ -1,0 +1,90 @@
+/* ProfileInfo.module.css */
+.profileInfoCard {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .profileInfoCard:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .cardTitle {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+  
+  .profileItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 5px;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+  }
+  
+  .profileItem:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .icon {
+    color: #007bff;
+    margin-right: 10px;
+    min-width: 16px;
+  }
+  
+  .label {
+    font-weight: 600;
+    color: #555;
+    margin: 0;
+    margin-right: 5px;
+    min-width: 50px;
+  }
+  
+  .value {
+    margin: 0;
+    color: #333;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .editProfileButton {
+    width: 100%;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .editProfileButton:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .editIcon {
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 768px) {
+    .profileInfoCard {
+      width: 100%;
+    }
+  }

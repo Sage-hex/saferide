@@ -1,0 +1,43 @@
+/* NotificationItem.module.css */
+.notificationItem {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+  }
+  
+  .notificationItem:last-child {
+    border-bottom: none;
+  }
+  
+  .icon {
+    color: #ffc107;
+    font-size: 1.2rem;
+  }
+  
+  .message {
+    margin: 0;
+    flex-grow: 1;
+    color: #333;
+  }
+  
+  .timestamp {
+    color: #777;
+    font-size: 0.8rem;
+  }
+  
+  /* Optional: Dismiss button styling */
+  /* .dismissButton {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 10px;
+  }
+  
+  .dismissButton:hover {
+    text-decoration: underline;
+  } */
